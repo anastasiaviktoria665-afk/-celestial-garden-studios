@@ -1,1 +1,286 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Celestial Garden Studios</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+body {
+    margin: 0;
+    font-family: Inter, sans-serif;
+    background: #050507;
+    color: #eaeaea;
+    overflow-x: hidden;
+}
+/* ===== CINEMATIC LAYER ===== */
+.bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at top, rgba(255,255,255,0.06), transparent 40%),
+        radial-gradient(circle at bottom, rgba(120,120,140,0.05), transparent 60%),
+        #050507;
+    z-index: -2;
+}
+.grain {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+    opacity: 0.04;
+    z-index: -1;
+    pointer-events: none;
+}
+/* ===== ENTRY GATE ===== */
+.gateway {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: opacity 1.2s ease, transform 1.2s ease;
+}
+.logo {
+    font-size: 34px;
+    letter-spacing: 6px;
+    font-weight: 300;
+}
+.tagline {
+    font-size: 11px;
+    letter-spacing: 3px;
+    opacity: 0.5;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+input {
+    width: 260px;
+    padding: 14px;
+    margin: 6px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #fff;
+    outline: none;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-align: center;
+    transition: border 0.3s;
+}
+input:focus {
+    border: 1px solid rgba(255,255,255,0.3);
+}
+button {
+    width: 290px;
+    padding: 14px;
+    margin-top: 16px;
+    background: #eaeaea;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 11px;
+    transition: 0.3s;
+}
+button:hover {
+    background: #bfbfbf;
+    letter-spacing: 3px;
+}
+/* ===== TRANSITION SCREEN ===== */
+.enter-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #050507;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 5;
+}
+.enter-screen p {
+    font-size: 11px;
+    letter-spacing: 4px;
+    opacity: 0.6;
+    animation: fade 1.5s infinite alternate;
+}
+@keyframes fade {
+    from {opacity: 0.2;}
+    to {opacity: 0.8;}
+}
+/* ===== DASHBOARD ===== */
+.dashboard {
+    display: none;
+    padding: 80px 10%;
+    animation: fadeIn 1.5s ease forwards;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.section {
+    margin-bottom: 70px;
+}
+.section h2 {
+    font-size: 11px;
+    letter-spacing: 4px;
+    font-weight: 400;
+    opacity: 0.6;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+.card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 24px;
+    backdrop-filter: blur(12px);
+    font-size: 14px;
+    line-height: 1.6;
+    font-weight: 300;
+}
+a {
+    color: #eaeaea;
+    text-decoration: none;
+    display: block;
+    margin: 10px 0;
+    font-size: 13px;
+    opacity: 0.6;
+    transition: 0.2s;
+    letter-spacing: 1px;
+}
+a:hover {
+    opacity: 1;
+    padding-left: 5px;
+}
+.hidden {
+    display: none;
+    margin-top: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 24px;
+    background: rgba(255,255,255,0.01);
+    font-size: 13px;
+    letter-spacing: 1px;
+    line-height: 1.8;
+}
+.action-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    width: auto;
+    padding: 10px 20px;
+}
+.action-btn:hover {
+    background: #fff;
+    color: #000;
+}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="grain"></div>
+
+<div class="gateway" id="gateway">
+    <div class="logo">CELESTIAL GARDEN</div>
+    <div class="tagline">GLOBAL ENTERTAINMENT SYSTEM</div>
+    <input id="accessId" placeholder="ACCESS ID (e.g. STAFF)">
+    <input id="securityKey" type="password" placeholder="SECURITY KEY">
+    <button onclick="enterSystem()">Authenticate</button>
+</div>
+
+<div class="enter-screen" id="enterScreen">
+    <p>VERIFYING CREDENTIALS…</p>
+</div>
+
+<div class="dashboard" id="dashboard">
+    <div class="section">
+        <h2>EXCLUSIVE MEDIA NODE</h2>
+        <div class="card">
+            Private agency releases, concept outlines, and unmapped audio components.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>AURORÆS — GLOBAL ARTIST ARRAY</h2>
+        <div class="grid">
+            <div class="card"><b style="letter-spacing:1px;">ASTRA</b><br><span style="opacity:0.5; font-size:12px;">Visual Architecture</span></div>
+            <div class="card"><b style="letter-spacing:1px;">LYRA</b><br><span style="opacity:0.5; font-size:12px;">Vocal Core</span></div>
+            <div class="card"><b style="letter-spacing:1px;">NOIR</b><br><span style="opacity:0.5; font-size:12px;">Rhythm Division</span></div>
+            <div class="card"><b style="letter-spacing:1px;">VELA</b><br><span style="opacity:0.5; font-size:12px;">Performance Unit</span></div>
+            <div class="card"><b style="letter-spacing:1px;">SOLEIL</b><br><span style="opacity:0.5; font-size:12px;">Vocal/Dance Synthesis</span></div>
+            <div class="card"><b style="letter-spacing:1px;">NYX</b><br><span style="opacity:0.5; font-size:12px;">Adaptive All-Round System</span></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>GLOBAL AUDITION INTERFACE</h2>
+        <a href="https://forms.google.com" target="_blank">→ Soloist Entry Node</a>
+        <a href="https://forms.google.com" target="_blank">→ Duo Formation Entry Node</a>
+        <a href="https://forms.google.com" target="_blank">→ Boy Group Entry Node</a>
+        <a href="https://forms.google.com" target="_blank">→ Agency Operations Entry Node</a>
+        <div class="card" style="margin-top:20px;">
+            All portfolio submissions must use clear cloud networks (e.g., Google Drive) with permissions set to: <b>“Anyone with the link can view”</b>. 
+            <br><br>
+            Restricted credentials result in automatic pipeline deletion.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>INTERNAL EVALUATION SYSTEM</h2>
+        <button class="action-btn" onclick="togglePanel()">Access Trainee Data</button>
+        <div class="hidden" id="panel">
+            <p><strong>System Performance Mapping:</strong></p>
+            <p>• Vocal Stability Index — Pending Next Cycle Calibration</p>
+            <p>• Core Choreography Precision — Processing Data</p>
+            <p>• Creative Execution — Active Evaluation</p>
+        </div>
+    </div>
+</div>
+
+<script>
+function enterSystem() {
+    const idInput = document.getElementById("accessId").value.trim();
+    const keyInput = document.getElementById("securityKey").value.trim();
+
+    const correctID = "STAFF";
+    const correctKey = "CELESTIAL2026";
+
+    if (idInput === correctID && keyInput === correctKey) {
+        document.getElementById("gateway").style.opacity = "0";
+        document.getElementById("gateway").style.transform = "scale(0.98)";
+        
+        setTimeout(() => {
+            document.getElementById("gateway").style.display = "none";
+            document.getElementById("enterScreen").style.display = "flex";
+        }, 1000);
+
+        setTimeout(() => {
+            document.getElementById("enterScreen").style.opacity = "0";
+            setTimeout(() => {
+                document.getElementById("enterScreen").style.display = "none";
+                document.getElementById("dashboard").style.display = "block";
+            }, 500);
+        }, 3000);
+    } else {
+        alert("ACCESS DENIED: Invalid System Credentials.");
+    }
+}
+
+function togglePanel() {
+    const panel = document.getElementById("panel");
+    panel.style.display = (panel.style.display === "block") ? "none" : "block";
+}
+</script>
+</body>
+</html>
